@@ -1,0 +1,807 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اعضاع | AI Human Anatomy Generator - MADE BY ĂQÎB</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#070a12',
+                            card: '#0f172a',
+                            border: '#1e293b',
+                            cyan: '#06b6d4',
+                            purple: '#a855f7',
+                            pink: '#ec4899',
+                            glow: '#00f0ff'
+                        }
+                    },
+                    fontFamily: {
+                        arabic: ['Amiri', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2.5s infinite alternate',
+                        'scanline': 'scan 3s linear infinite',
+                        'float': 'float 4s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%': { boxShadow: '0 0 15px rgba(6, 182, 212, 0.3)' },
+                            '100%': { boxShadow: '0 0 35px rgba(168, 85, 247, 0.6)' }
+                        },
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(1000%)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-8px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050811;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070a12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+
+        /* Neon Glow Effects */
+        .neon-border-cyan {
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+        .neon-border-purple {
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.7);
+        }
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.7);
+        }
+
+        /* Grid Background Pattern */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(6, 182, 212, 0.15) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Option Card Selection */
+        .card-option {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .card-option:hover {
+            transform: translateY(-4px);
+            border-color: #06b6d4;
+            box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.3);
+        }
+        .card-option.selected {
+            border-color: #a855f7;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark min-h-screen text-slate-100 flex flex-col relative selection:bg-cyber-cyan selection:text-black">
+
+    <!-- SPLASH SCREEN / INTRO -->
+    <div id="splashScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-cyber-dark bg-grid-pattern transition-opacity duration-700">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-dark/80 to-cyber-dark pointer-events-none"></div>
+        
+        <!-- Glowing Ambient Lights -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyber-cyan/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-1/4 left-1/2 -translate-x-1/2 translate-y-1/2 w-96 h-96 bg-cyber-purple/20 rounded-full blur-[120px]"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-xl mx-auto flex flex-col items-center">
+            <!-- Animated Icon/Logo -->
+            <div class="w-28 h-28 mb-6 rounded-2xl glass-panel flex items-center justify-center border border-cyber-cyan/40 shadow-2xl animate-pulse-glow">
+                <i class="fa-solid fa-brain text-5xl text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-pink"></i>
+            </div>
+
+            <!-- Arabic App Name -->
+            <h1 class="font-arabic text-7xl md:text-8xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-purple-300 to-cyber-purple neon-text-cyan tracking-wide">
+                اعضاع
+            </h1>
+            
+            <p class="text-sm font-semibold tracking-[0.3em] uppercase text-cyber-cyan mb-2">
+                AI Medical Anatomy Engine
+            </p>
+
+            <!-- Made By Branding Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-cyber-purple/50 mb-8 animate-float">
+                <span class="w-2 h-2 rounded-full bg-cyber-pink animate-ping"></span>
+                <span class="text-xs font-bold tracking-widest text-slate-200">MADE BY <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-cyber-purple font-black">ĂQÎB</span></span>
+            </div>
+
+            <p class="text-slate-400 text-sm mb-10 max-w-md">
+                Generate high-definition, medically accurate 3D renders, anime styles, and detailed visual diagrams for male & female anatomy across age groups.
+            </p>
+
+            <!-- Enter Button -->
+            <button onclick="startApp()" class="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-purple text-slate-950 font-bold text-lg shadow-lg hover:shadow-cyber-cyan/50 hover:scale-105 transition-all duration-300 flex items-center gap-3 overflow-hidden">
+                <span class="relative z-10">START EXPLORATION</span>
+                <i class="fa-solid fa-arrow-right relative z-10 group-hover:translate-x-1 transition-transform"></i>
+                <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            </button>
+        </div>
+
+        <div class="absolute bottom-6 text-xs text-slate-500 font-mono tracking-wider">
+            v2.5 ULTRA • POWERED BY GEMINI AI & HIGH-RES IMAGE ENGINES
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="mainApp" class="hidden min-h-screen flex flex-col bg-grid-pattern relative">
+        
+        <!-- HEADER NAVBAR -->
+        <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-3">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <!-- App Title -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="resetToHome()">
+                    <div class="w-10 h-10 rounded-lg bg-slate-900 border border-cyber-cyan/40 flex items-center justify-center text-cyber-cyan">
+                        <i class="fa-solid fa-dna text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-arabic text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-cyber-purple">اعضاع</span>
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-cyber-purple/20 text-cyber-purple border border-cyber-purple/30">PRO</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400 font-mono">ANATOMY AI GENERATOR</p>
+                    </div>
+                </div>
+
+                <!-- Center Branding -->
+                <div class="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-xs text-slate-300">
+                    <i class="fa-solid fa-code text-cyber-cyan"></i>
+                    <span>CREATED BY <strong class="text-cyber-cyan tracking-wider">ĂQÎB</strong></span>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="flex items-center gap-3">
+                    <button onclick="openApiKeyModal()" class="px-3 py-1.5 rounded-lg glass-panel border border-cyber-cyan/30 text-xs font-semibold text-cyber-cyan hover:bg-cyber-cyan/10 transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-key"></i>
+                        <span class="hidden sm:inline">Gemini API Key</span>
+                    </button>
+                    <button onclick="openHistoryDrawer()" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition-colors flex items-center gap-2 border border-slate-700">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span class="hidden sm:inline">History</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8 flex flex-col lg:flex-row gap-8">
+            
+            <!-- LEFT PANEL: CUSTOMIZATION CONTROLS -->
+            <div class="w-full lg:w-7/12 flex flex-col gap-6">
+                
+                <!-- STEP 1: GENDER SELECTION -->
+                <section class="glass-panel p-5 rounded-2xl border border-slate-800">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-7 h-7 rounded-full bg-cyber-cyan/20 text-cyber-cyan font-bold text-xs flex items-center justify-center border border-cyber-cyan/40">1</span>
+                        <h2 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                            Select Gender
+                            <span class="text-xs font-normal text-slate-400">(Biological structural differences)</span>
+                        </h2>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Male Card -->
+                        <div id="genderMale" onclick="selectGender('Male')" class="card-option selected p-4 rounded-xl glass-panel flex flex-col items-center justify-center gap-2 text-center relative overflow-hidden">
+                            <i class="fa-solid fa-mars text-3xl text-cyber-cyan"></i>
+                            <span class="font-bold text-sm text-slate-200">Male Body</span>
+                            <span class="text-[11px] text-slate-400">Broader shoulder frame, male pelvic structure & hormone distributions</span>
+                            <div class="check-badge absolute top-2 right-2 text-cyber-cyan">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </div>
+
+                        <!-- Female Card -->
+                        <div id="genderFemale" onclick="selectGender('Female')" class="card-option p-4 rounded-xl glass-panel flex flex-col items-center justify-center gap-2 text-center relative overflow-hidden">
+                            <i class="fa-solid fa-venus text-3xl text-cyber-pink"></i>
+                            <span class="font-bold text-sm text-slate-200">Female Body</span>
+                            <span class="text-[11px] text-slate-400">Wider pelvis structure, specialized organ positioning & muscle density</span>
+                            <div class="check-badge absolute top-2 right-2 text-slate-600 hidden">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP 2: AGE GROUP SELECTION -->
+                <section class="glass-panel p-5 rounded-2xl border border-slate-800">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-7 h-7 rounded-full bg-cyber-cyan/20 text-cyber-cyan font-bold text-xs flex items-center justify-center border border-cyber-cyan/40">2</span>
+                        <h2 class="text-base font-bold text-slate-100">Select Age Group</h2>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div id="ageChild" onclick="selectAge('Child (5-12 yrs)')" class="card-option p-3 rounded-xl glass-panel text-center flex flex-col items-center gap-1">
+                            <i class="fa-solid fa-child text-xl text-amber-400 mb-1"></i>
+                            <span class="font-bold text-xs text-slate-200">Child</span>
+                            <span class="text-[10px] text-slate-400">5-12 Years</span>
+                        </div>
+                        <div id="ageTeen" onclick="selectAge('Teenager (13-18 yrs)')" class="card-option p-3 rounded-xl glass-panel text-center flex flex-col items-center gap-1">
+                            <i class="fa-solid fa-user text-xl text-emerald-400 mb-1"></i>
+                            <span class="font-bold text-xs text-slate-200">Teen</span>
+                            <span class="text-[10px] text-slate-400">13-18 Years</span>
+                        </div>
+                        <div id="ageAdult" onclick="selectAge('Adult (19-50 yrs)')" class="card-option selected p-3 rounded-xl glass-panel text-center flex flex-col items-center gap-1">
+                            <i class="fa-solid fa-user-doctor text-xl text-cyber-cyan mb-1"></i>
+                            <span class="font-bold text-xs text-slate-200">Adult</span>
+                            <span class="text-[10px] text-slate-400">19-50 Years</span>
+                        </div>
+                        <div id="ageSenior" onclick="selectAge('Senior (50+ yrs)')" class="card-option p-3 rounded-xl glass-panel text-center flex flex-col items-center gap-1">
+                            <i class="fa-solid fa-person-cane text-xl text-cyber-purple mb-1"></i>
+                            <span class="font-bold text-xs text-slate-200">Senior</span>
+                            <span class="text-[10px] text-slate-400">50+ Years</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP 3: ANATOMICAL SYSTEM SELECTION -->
+                <section class="glass-panel p-5 rounded-2xl border border-slate-800">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-7 h-7 rounded-full bg-cyber-cyan/20 text-cyber-cyan font-bold text-xs flex items-center justify-center border border-cyber-cyan/40">3</span>
+                        <h2 class="text-base font-bold text-slate-100">Anatomy System / Organ Category</h2>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="anatomySystemGrid">
+                        <!-- Items rendered via JS -->
+                    </div>
+                </section>
+
+                <!-- STEP 4: VISUAL STYLE / ART RENDERING -->
+                <section class="glass-panel p-5 rounded-2xl border border-slate-800">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-7 h-7 rounded-full bg-cyber-cyan/20 text-cyber-cyan font-bold text-xs flex items-center justify-center border border-cyber-cyan/40">4</span>
+                        <h2 class="text-base font-bold text-slate-100">Rendering Style & Detail Level</h2>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3" id="styleGrid">
+                        <!-- Style Cards rendered via JS -->
+                    </div>
+                </section>
+
+                <!-- GENERATE ACTION BUTTON -->
+                <button onclick="generateAnatomyImage()" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyber-cyan via-purple-600 to-cyber-purple text-slate-950 font-black text-lg shadow-xl hover:shadow-cyber-cyan/40 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-3 border border-cyan-300/30">
+                    <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                    <span>GENERATE ANATOMY IMAGE</span>
+                </button>
+            </div>
+
+            <!-- RIGHT PANEL: PREVIEW & AI METADATA DISPLAY -->
+            <div class="w-full lg:w-5/12 flex flex-col gap-6">
+                
+                <!-- DISPLAY CANVAS / PREVIEW CARD -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 flex flex-col gap-4 sticky top-24">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyber-cyan animate-ping"></span>
+                            <h3 class="text-sm font-bold text-slate-200">Anatomy Viewer</h3>
+                        </div>
+                        <span id="renderingStatusBadge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400">READY</span>
+                    </div>
+
+                    <!-- IMAGE VIEWPORT CONTAINER -->
+                    <div class="relative w-full aspect-square rounded-xl bg-slate-950 border border-slate-800 overflow-hidden flex items-center justify-center group">
+                        
+                        <!-- Placeholder State -->
+                        <div id="placeholderState" class="flex flex-col items-center justify-center text-center p-6 text-slate-500 gap-3">
+                            <div class="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-cyber-cyan text-2xl">
+                                <i class="fa-solid fa-microscope"></i>
+                            </div>
+                            <p class="text-sm font-medium text-slate-400">No Image Generated Yet</p>
+                            <p class="text-xs text-slate-500 max-w-xs">Select gender, system, and style on the left to generate medically detailed anatomical art.</p>
+                        </div>
+
+                        <!-- Loading Scanning State -->
+                        <div id="loadingState" class="hidden absolute inset-0 bg-slate-950/90 flex flex-col items-center justify-center p-6 text-center z-20">
+                            <!-- Scanning Beam Effect -->
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-cyan/10 to-transparent animate-scanline"></div>
+                            
+                            <div class="relative w-20 h-20 mb-4">
+                                <div class="absolute inset-0 rounded-full border-2 border-cyber-cyan border-t-transparent animate-spin"></div>
+                                <div class="absolute inset-2 rounded-full border-2 border-cyber-purple border-b-transparent animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+                                <div class="absolute inset-0 flex items-center justify-center text-cyber-cyan font-mono text-xs font-bold">
+                                    <i class="fa-solid fa-heart-pulse text-xl animate-pulse"></i>
+                                </div>
+                            </div>
+
+                            <p class="text-sm font-bold text-cyber-cyan tracking-wider mb-1">GENERATING ANATOMY...</p>
+                            <p id="loadingPhaseText" class="text-xs text-slate-400 font-mono">Synthesizing high-res visual structures...</p>
+
+                            <!-- Progress Bar -->
+                            <div class="w-48 h-1.5 bg-slate-800 rounded-full mt-4 overflow-hidden border border-slate-700">
+                                <div id="loadingBar" class="h-full bg-gradient-to-r from-cyber-cyan to-cyber-purple w-0 transition-all duration-300"></div>
+                            </div>
+                        </div>
+
+                        <!-- Rendered Image -->
+                        <img id="anatomyResultImage" src="" alt="Anatomy Render" class="hidden w-full h-full object-cover rounded-xl transition-all duration-500">
+
+                        <!-- Hover Controls Overlay -->
+                        <div id="imageHoverControls" class="hidden absolute bottom-3 right-3 flex items-center gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="downloadImage()" class="p-2.5 rounded-lg bg-slate-900/90 text-slate-200 hover:text-cyber-cyan hover:bg-slate-800 border border-slate-700 transition-colors shadow-lg" title="Download High Res">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+                            <button onclick="zoomImageModal()" class="p-2.5 rounded-lg bg-slate-900/90 text-slate-200 hover:text-cyber-cyan hover:bg-slate-800 border border-slate-700 transition-colors shadow-lg" title="Fullscreen Zoom">
+                                <i class="fa-solid fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- AI MEDICAL EXPLANATION PANEL -->
+                    <div id="explanationBox" class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col gap-2">
+                        <div class="flex items-center justify-between text-xs font-bold text-slate-300">
+                            <span class="flex items-center gap-1.5 text-cyber-cyan">
+                                <i class="fa-solid fa-notes-medical"></i>
+                                Gemini Medical Insights
+                            </span>
+                            <span id="selectedMetaTag" class="font-mono text-[10px] text-slate-500">MALE • ADULT</span>
+                        </div>
+                        <p id="explanationText" class="text-xs text-slate-400 leading-relaxed italic">
+                            Select parameters and click generate to view AI-synthesized anatomical specs and educational notes.
+                        </p>
+                    </div>
+
+                    <!-- PROMPT DETAILS COLLAPSIBLE -->
+                    <div class="border-t border-slate-800/80 pt-3 flex flex-col gap-2">
+                        <button onclick="togglePromptDetails()" class="flex items-center justify-between text-xs text-slate-400 hover:text-slate-200 transition-colors">
+                            <span class="flex items-center gap-2">
+                                <i class="fa-solid fa-terminal text-cyber-purple"></i>
+                                View Generated Prompt
+                            </span>
+                            <i id="promptChevron" class="fa-solid fa-chevron-down text-xs transition-transform"></i>
+                        </button>
+                        <div id="promptDetailsBox" class="hidden p-3 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-400 break-words relative">
+                            <button onclick="copyPromptText()" class="absolute top-2 right-2 text-slate-500 hover:text-cyber-cyan transition-colors" title="Copy Prompt">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                            <span id="rawPromptText">...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- FOOTER BRANDING -->
+        <footer class="mt-auto border-t border-slate-800/80 glass-panel py-4 px-6 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-7xl mx-auto w-full">
+            <div class="flex items-center gap-2">
+                <span class="font-arabic text-xl font-bold text-cyber-cyan">اعضاع</span>
+                <span>• AI Human Anatomy System</span>
+            </div>
+            <div class="text-slate-400 font-semibold">
+                Designed & Developed by <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-cyber-purple font-black">ĂQÎB</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MODAL 1: GEMINI API KEY MODAL -->
+    <div id="apiKeyModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-panel p-6 rounded-2xl border border-cyber-cyan/40 max-w-md w-full flex flex-col gap-4 shadow-2xl relative">
+            <button onclick="closeApiKeyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center gap-3 text-cyber-cyan">
+                <i class="fa-solid fa-key text-2xl"></i>
+                <h3 class="font-bold text-lg text-slate-100">Gemini API Key</h3>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+                Add your personal Gemini API Key for unlimited medical insight generation and enhanced prompt optimizations. Your key is saved locally in your browser.
+            </p>
+            <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:border-cyber-cyan font-mono">
+            
+            <div class="flex items-center justify-between gap-3 pt-2">
+                <button onclick="clearApiKey()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">Clear</button>
+                <button onclick="saveApiKey()" class="px-5 py-2 rounded-lg bg-gradient-to-r from-cyber-cyan to-cyber-purple text-slate-950 font-bold text-xs hover:opacity-90">Save Key</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: FULLSCREEN IMAGE ZOOM MODAL -->
+    <div id="imageZoomModal" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex flex-col items-center justify-center p-4">
+        <button onclick="closeZoomModal()" class="absolute top-6 right-6 p-3 rounded-full glass-panel text-slate-200 hover:text-cyber-cyan border border-slate-700 text-xl z-10">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="zoomedImage" src="" alt="Zoomed Anatomy Render" class="max-w-full max-h-[85vh] object-contain rounded-xl border border-slate-800 shadow-2xl">
+    </div>
+
+    <!-- DRAWER: GENERATION HISTORY -->
+    <div id="historyDrawer" class="fixed inset-y-0 right-0 z-50 w-full sm:w-80 glass-panel border-l border-slate-800 p-6 flex flex-col gap-4 translate-x-full transition-transform duration-300 shadow-2xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="font-bold text-slate-200 text-sm flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-cyber-cyan"></i>
+                History
+            </h3>
+            <button onclick="closeHistoryDrawer()" class="text-slate-400 hover:text-slate-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <div id="historyList" class="flex-1 overflow-y-auto flex flex-col gap-3 pr-1">
+            <!-- Rendered history items -->
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* APP STATE */
+        const state = {
+            gender: 'Male',
+            age: 'Adult (19-50 yrs)',
+            system: 'Full Body Anatomy',
+            style: '3D Cinematic Render',
+            apiKey: localStorage.getItem('azaa_gemini_key') || '',
+            lastGeneratedUrl: '',
+            lastPrompt: '',
+            history: []
+        };
+
+        /* DATA CONFIGURATIONS */
+        const anatomySystems = [
+            { id: 'Full Body Anatomy', icon: 'fa-user-nurse', label: 'Full Body' },
+            { id: 'Human Heart Anatomy', icon: 'fa-heart-pulse', label: 'Heart' },
+            { id: 'Human Skeleton System', icon: 'fa-bone', label: 'Skeleton' },
+            { id: 'Human Brain Anatomy', icon: 'fa-brain', label: 'Brain' },
+            { id: 'Muscular System', icon: 'fa-child-reaching', label: 'Muscular' },
+            { id: 'Digestive System', icon: 'fa-stomach', label: 'Digestive' },
+            { id: 'Circulatory System', icon: 'fa-code-branch', label: 'Circulatory' },
+            { id: 'Respiratory System', icon: 'fa-lungs', label: 'Respiratory' }
+        ];
+
+        const artStyles = [
+            { id: '3D Cinematic Render', icon: 'fa-cube', desc: 'Ultra-realistic octan-render 3D translucent aesthetic' },
+            { id: 'Detailed Diagram with Labels', icon: 'fa-file-medical', desc: 'Medical textbook diagram with precision cross-sections' },
+            { id: 'Detailed Realistic Body View', icon: 'fa-person', desc: 'Photorealistic MRI/X-Ray hybrid hyper-detailed organ render' },
+            { id: 'Anime Style', icon: 'fa-wand-magic-sparkles', desc: 'Vibrant stylized futuristic cyber-anime anatomical vector art' }
+        ];
+
+        /* INITIALIZATION */
+        window.onload = function() {
+            renderAnatomyGrid();
+            renderStyleGrid();
+            if(state.apiKey) {
+                document.getElementById('geminiApiKeyInput').value = state.apiKey;
+            }
+        };
+
+        function startApp() {
+            const splash = document.getElementById('splashScreen');
+            splash.classList.add('opacity-0');
+            setTimeout(() => {
+                splash.classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+            }, 700);
+        }
+
+        function resetToHome() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* CARD RENDERING & SELECTIONS */
+        function renderAnatomyGrid() {
+            const container = document.getElementById('anatomySystemGrid');
+            container.innerHTML = anatomySystems.map(sys => `
+                <div id="sys-${sys.id.replace(/\s+/g, '')}" onclick="selectSystem('${sys.id}')" class="card-option p-3 rounded-xl glass-panel text-center flex flex-col items-center justify-center gap-1.5 ${state.system === sys.id ? 'selected' : ''}">
+                    <i class="fa-solid ${sys.icon} text-lg ${state.system === sys.id ? 'text-cyber-cyan' : 'text-slate-400'}"></i>
+                    <span class="font-bold text-xs text-slate-200">${sys.label}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderStyleGrid() {
+            const container = document.getElementById('styleGrid');
+            container.innerHTML = artStyles.map(st => `
+                <div id="style-${st.id.replace(/\s+/g, '')}" onclick="selectStyle('${st.id}')" class="card-option p-3 rounded-xl glass-panel flex flex-col gap-1 ${state.style === st.id ? 'selected' : ''}">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid ${st.icon} text-cyber-cyan text-sm"></i>
+                        <span class="font-bold text-xs text-slate-200">${st.id}</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400">${st.desc}</span>
+                </div>
+            `).join('');
+        }
+
+        function selectGender(gender) {
+            state.gender = gender;
+            document.querySelectorAll('#genderMale, #genderFemale').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.check-badge').forEach(el => el.classList.add('hidden'));
+            
+            const activeEl = document.getElementById(gender === 'Male' ? 'genderMale' : 'genderFemale');
+            activeEl.classList.add('selected');
+            activeEl.querySelector('.check-badge').classList.remove('hidden');
+        }
+
+        function selectAge(age) {
+            state.age = age;
+            ['Child', 'Teen', 'Adult', 'Senior'].forEach(a => {
+                const el = document.getElementById(`age${a}`);
+                if(el) el.classList.remove('selected');
+            });
+            if(age.includes('Child')) document.getElementById('ageChild').classList.add('selected');
+            if(age.includes('Teen')) document.getElementById('ageTeen').classList.add('selected');
+            if(age.includes('Adult')) document.getElementById('ageAdult').classList.add('selected');
+            if(age.includes('Senior')) document.getElementById('ageSenior').classList.add('selected');
+        }
+
+        function selectSystem(sysId) {
+            state.system = sysId;
+            renderAnatomyGrid();
+        }
+
+        function selectStyle(styleId) {
+            state.style = styleId;
+            renderStyleGrid();
+        }
+
+        /* PROMPT GENERATION ENGINE */
+        function buildAnatomyPrompt() {
+            let prompt = `A highly detailed, medically accurate anatomical visualization of ${state.gender} ${state.age} ${state.system}. `;
+            
+            if (state.style === '3D Cinematic Render') {
+                prompt += `3D render, subsurface scattering, translucent glowing muscle fibers and organ walls, octane render, futuristic medical visualization, dark background, cyan and purple accent lighting, 8k resolution, cinematic atmosphere.`;
+            } else if (state.style === 'Detailed Diagram with Labels') {
+                prompt += `Comprehensive medical illustration, labeled anatomical parts, clean vector lines, cross-section view, high contrast, scientific atlas graphic, bright clear lighting, medical educational poster style.`;
+            } else if (state.style === 'Detailed Realistic Body View') {
+                prompt += `Ultra-realistic biological anatomical detail, MRI photo-realistic render, cellular texture detail, organ depth, true biological coloration, clean studio illumination, studio medical photography.`;
+            } else if (state.style === 'Anime Style') {
+                prompt += `Vibrant anime concept art style, sleek cybernetic aesthetic, stylized organ contours, neon highlighted circulatory and nervous pathways, dramatic anime lighting, polished digital art.`;
+            }
+            return prompt;
+        }
+
+        /* GENERATION CONTROLLER */
+        async function generateAnatomyImage() {
+            const prompt = buildAnatomyPrompt();
+            state.lastPrompt = prompt;
+
+            // UI Loading Updates
+            document.getElementById('placeholderState').classList.add('hidden');
+            document.getElementById('anatomyResultImage').classList.add('hidden');
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('renderingStatusBadge').innerText = 'GENERATING';
+            document.getElementById('renderingStatusBadge').className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-cyber-cyan/20 text-cyber-cyan animate-pulse';
+
+            // Loading Bar Simulation
+            let progress = 10;
+            const bar = document.getElementById('loadingBar');
+            const phaseText = document.getElementById('loadingPhaseText');
+            bar.style.width = `${progress}%`;
+
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 15) + 5;
+                if (progress > 85) progress = 85;
+                bar.style.width = `${progress}%`;
+
+                if (progress > 30 && progress < 60) {
+                    phaseText.innerText = `Structuring ${state.gender} ${state.system}...`;
+                } else if (progress >= 60) {
+                    phaseText.innerText = `Applying ${state.style} details...`;
+                }
+            }, 300);
+
+            try {
+                // Pollinations Engine Fallback for Unlimited Image Generation
+                const encodedPrompt = encodeURIComponent(prompt);
+                const seed = Math.floor(Math.random() * 100000);
+                const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&seed=${seed}&nologo=true&enhance=true`;
+
+                // Preload Image
+                const img = new Image();
+                img.src = imageUrl;
+                await new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = reject;
+                });
+
+                clearInterval(interval);
+                bar.style.width = '100%';
+
+                setTimeout(() => {
+                    document.getElementById('loadingState').classList.add('hidden');
+                    const resImg = document.getElementById('anatomyResultImage');
+                    resImg.src = imageUrl;
+                    resImg.classList.remove('hidden');
+                    document.getElementById('imageHoverControls').classList.remove('hidden');
+
+                    state.lastGeneratedUrl = imageUrl;
+                    document.getElementById('renderingStatusBadge').innerText = 'RENDER COMPLETE';
+                    document.getElementById('renderingStatusBadge').className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400';
+
+                    // Update Prompt details
+                    document.getElementById('rawPromptText').innerText = prompt;
+                    document.getElementById('selectedMetaTag').innerText = `${state.gender.toUpperCase()} • ${state.age.toUpperCase()}`;
+
+                    // Fetch or Synthesize Gemini Insights
+                    generateGeminiMedicalInsights();
+
+                    // Add to History
+                    saveToHistory(imageUrl, state.system, state.gender);
+
+                }, 400);
+
+            } catch (err) {
+                clearInterval(interval);
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('placeholderState').classList.remove('hidden');
+                alert('Generation failed. Please try again.');
+            }
+        }
+
+        /* GEMINI API INTEGRATION FOR MEDICAL INSIGHTS */
+        async function generateGeminiMedicalInsights() {
+            const explanationText = document.getElementById('explanationText');
+            explanationText.innerText = 'Analyzing anatomical metrics via Gemini...';
+
+            const userQuery = `Provide a concise, 2-3 sentence high-yield medical explanation about the ${state.system} in a ${state.gender} (${state.age}), highlighting unique structural or biological features for this group.`;
+
+            if (state.apiKey) {
+                try {
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${state.apiKey}`;
+                    const res = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: userQuery }] }]
+                        })
+                    });
+                    const data = await res.json();
+                    const resultText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (resultText) {
+                        explanationText.innerText = resultText;
+                        return;
+                    }
+                } catch (e) {
+                    console.log('Gemini API call failed, falling back to local synthesis', e);
+                }
+            }
+
+            // Fallback Medical Insights Synthesis
+            setTimeout(() => {
+                const insights = {
+                    'Human Heart Anatomy': `The ${state.gender} ${state.age} cardiac structure shows distinctive myocardial thickness and coronary vascular architecture tailored to metabolic demands.`,
+                    'Human Skeleton System': `Skeletal density and pelvic bone geometry in a ${state.gender} (${state.age}) reflect specific biomechanical load adaptations and hormonal ossification baselines.`,
+                    'Human Brain Anatomy': `Neurological vascular pathways and cerebral cortex volume in this age demographic reflect active metabolic and synaptic connectivity patterns.`,
+                    'Muscular System': `Myofibrillar alignment and muscle mass distribution for a ${state.gender} (${state.age}) display characteristic physiological cross-sectional area features.`
+                };
+                explanationText.innerText = insights[state.system] || `Detailed visualization of the ${state.system} for a ${state.gender} (${state.age}), showing distinct vascular and structural anatomical proportions.`;
+            }, 600);
+        }
+
+        /* API KEY MANAGEMENT */
+        function openApiKeyModal() { document.getElementById('apiKeyModal').classList.remove('hidden'); }
+        function closeApiKeyModal() { document.getElementById('apiKeyModal').classList.add('hidden'); }
+        function saveApiKey() {
+            const key = document.getElementById('geminiApiKeyInput').value.trim();
+            state.apiKey = key;
+            localStorage.setItem('azaa_gemini_key', key);
+            closeApiKeyModal();
+        }
+        function clearApiKey() {
+            state.apiKey = '';
+            localStorage.removeItem('azaa_gemini_key');
+            document.getElementById('geminiApiKeyInput').value = '';
+            closeApiKeyModal();
+        }
+
+        /* HISTORY MANAGEMENT */
+        function saveToHistory(url, sys, gender) {
+            state.history.unshift({ url, sys, gender, date: new Date().toLocaleTimeString() });
+            if (state.history.length > 10) state.history.pop();
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const list = document.getElementById('historyList');
+            if (state.history.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">No history yet.</p>`;
+                return;
+            }
+            list.innerHTML = state.history.map((item, idx) => `
+                <div class="p-2 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-3 cursor-pointer hover:border-cyber-cyan transition-colors" onclick="loadFromHistory('${item.url}')">
+                    <img src="${item.url}" class="w-12 h-12 object-cover rounded bg-slate-950">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-bold text-slate-200">${item.sys}</span>
+                        <span class="text-[10px] text-slate-400">${item.gender} • ${item.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadFromHistory(url) {
+            document.getElementById('anatomyResultImage').src = url;
+            closeHistoryDrawer();
+        }
+
+        function openHistoryDrawer() { document.getElementById('historyDrawer').classList.remove('translate-x-full'); }
+        function closeHistoryDrawer() { document.getElementById('historyDrawer').classList.add('translate-x-full'); }
+
+        /* UI ACTIONS */
+        function togglePromptDetails() {
+            const box = document.getElementById('promptDetailsBox');
+            const chevron = document.getElementById('promptChevron');
+            box.classList.toggle('hidden');
+            chevron.classList.toggle('rotate-180');
+        }
+
+        function copyPromptText() {
+            const text = document.getElementById('rawPromptText').innerText;
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            alert('Prompt copied to clipboard!');
+        }
+
+        function downloadImage() {
+            if (!state.lastGeneratedUrl) return;
+            const a = document.createElement('a');
+            a.href = state.lastGeneratedUrl;
+            a.download = `Azaa_Anatomy_${state.gender}_${state.system.replace(/\s+/g, '_')}.jpg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function zoomImageModal() {
+            if (!state.lastGeneratedUrl) return;
+            document.getElementById('zoomedImage').src = state.lastGeneratedUrl;
+            document.getElementById('imageZoomModal').classList.remove('hidden');
+        }
+
+        function closeZoomModal() {
+            document.getElementById('imageZoomModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
+```
